@@ -37,7 +37,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentView, setView, 
         </div>
       </header>
 
-      <main className="flex-1 flex flex-col pt-40">
+      <main className="flex-1 flex flex-col pt-40 pb-32">
         {children}
       </main>
 
