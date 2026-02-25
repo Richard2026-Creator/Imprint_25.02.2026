@@ -11,13 +11,14 @@ interface HomeProps {
 
 export const Home: React.FC<HomeProps> = ({ library, settings, setView }) => {
   const [showPinModal, setShowPinModal] = useState(false);
+  (window as any).openAdminPin = () => setShowPinModal(true);
   const [pin, setPin] = useState('');
   const [error, setError] = useState(false);
 
   const activePool = library.filter(img => img.isActive !== false);
   const poolSize = activePool.length;
   const minRequired = settings.minRequiredImages;
-  
+
   const isEnabled = poolSize >= minRequired;
   const progress = Math.min(100, (poolSize / minRequired) * 100);
   const remaining = Math.max(0, minRequired - poolSize);
@@ -38,13 +39,7 @@ export const Home: React.FC<HomeProps> = ({ library, settings, setView }) => {
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-12 pb-24 text-center animate-in fade-in duration-1000 ease-out relative">
-      {/* Gear Icon for CMS Access */}
-      <button 
-        onClick={() => setShowPinModal(true)}
-        className="absolute top-0 right-12 p-2 text-[#a39e93] hover:text-[#3d3935] transition-colors active:scale-90"
-      >
-        <Settings size={20} strokeWidth={1.2} />
-      </button>
+
 
       <div className="max-w-md w-full">
         <p className="text-[#7d776d] text-xl font-light leading-relaxed mb-16 tracking-tight italic serif">
@@ -71,11 +66,10 @@ export const Home: React.FC<HomeProps> = ({ library, settings, setView }) => {
           <button
             disabled={!isEnabled}
             onClick={() => setView('DISCOVERY')}
-            className={`w-full py-6 px-10 rounded-full text-[11px] font-bold tracking-[0.3em] uppercase transition-all duration-700 ${
-              isEnabled 
-                ? 'bg-[#3d3935] text-[#f4f1ea] active:scale-[0.98] shadow-2xl hover:bg-[#2a2724]' 
-                : 'bg-[#ede8df] text-[#c9c4b9] cursor-not-allowed'
-            }`}
+            className={`w-full py-6 px-10 rounded-full text-[11px] font-bold tracking-[0.3em] uppercase transition-all duration-700 ${isEnabled
+              ? 'bg-[#3d3935] text-[#f4f1ea] active:scale-[0.98] shadow-2xl hover:bg-[#2a2724]'
+              : 'bg-[#ede8df] text-[#c9c4b9] cursor-not-allowed'
+              }`}
           >
             Begin Discovery
           </button>
@@ -89,7 +83,7 @@ export const Home: React.FC<HomeProps> = ({ library, settings, setView }) => {
               </span>
             </div>
             <div className="h-[1px] w-full bg-[#ede8df] rounded-full overflow-hidden">
-              <div 
+              <div
                 className="h-full bg-[#3d3935] transition-all duration-[1500ms] ease-in-out"
                 style={{ width: `${progress}%` }}
               />
@@ -110,13 +104,13 @@ export const Home: React.FC<HomeProps> = ({ library, settings, setView }) => {
       {/* PIN Modal */}
       <AnimatePresence>
         {showPinModal && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[200] flex items-center justify-center bg-[#f4f1ea]/95 backdrop-blur-md px-6"
           >
-            <button 
+            <button
               onClick={() => {
                 setShowPinModal(false);
                 setPin('');
@@ -136,11 +130,10 @@ export const Home: React.FC<HomeProps> = ({ library, settings, setView }) => {
               <form onSubmit={handlePinSubmit} className="space-y-8">
                 <div className="flex justify-center gap-4">
                   {[0, 1, 2, 3].map((i) => (
-                    <div 
+                    <div
                       key={i}
-                      className={`w-12 h-16 border-b-2 flex items-center justify-center transition-all duration-300 ${
-                        error ? 'border-red-400 animate-shake' : pin.length > i ? 'border-[#3d3935]' : 'border-[#dfd9ce]'
-                      }`}
+                      className={`w-12 h-16 border-b-2 flex items-center justify-center transition-all duration-300 ${error ? 'border-red-400 animate-shake' : pin.length > i ? 'border-[#3d3935]' : 'border-[#dfd9ce]'
+                        }`}
                     >
                       {pin.length > i && (
                         <div className="w-2 h-2 bg-[#3d3935] rounded-full" />
@@ -175,7 +168,7 @@ export const Home: React.FC<HomeProps> = ({ library, settings, setView }) => {
                   }}
                   className="absolute opacity-0 pointer-events-none"
                 />
-                
+
                 <p className={`text-[9px] uppercase tracking-widest font-bold transition-opacity duration-300 ${error ? 'text-red-400 opacity-100' : 'opacity-0'}`}>
                   Invalid PIN
                 </p>
