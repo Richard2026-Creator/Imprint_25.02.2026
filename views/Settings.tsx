@@ -140,7 +140,7 @@ export const SettingsView: React.FC<SettingsProps> = ({ settings, library, onLib
         <div className="space-y-6 animate-in fade-in">
           <div className="flex justify-between items-center">
             <div className="flex flex-col">
-              <div className="text-[9px] uppercase tracking-[0.3em] font-bold text-stone-300">
+              <div className="text-[9px] uppercase tracking-[0.3em] font-bold text-stone-400">
                 MINIMUM {settings.minRequiredImages} IMAGES / {activePool.length} IMAGES IN CURRENT LIBRARY
               </div>
             </div>
@@ -156,7 +156,7 @@ export const SettingsView: React.FC<SettingsProps> = ({ settings, library, onLib
               <p className="text-stone-300 text-[10px] mt-2 uppercase tracking-widest">Add high-quality interiors to begin</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-4 pb-40">
               {library.map(img => (
                 <div key={img.id} className={`bg-white p-3 rounded-2xl border flex gap-4 ios-shadow transition-all ${img.isActive === false ? 'opacity-50 border-stone-50' : 'border-stone-100'}`}>
                   <div className="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 group">
