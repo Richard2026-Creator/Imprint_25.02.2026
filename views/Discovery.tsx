@@ -326,7 +326,7 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
         </div>
       </div>
 
-      <div className="flex-1 relative px-6 overflow-visible flex items-center justify-center">
+ <div className="flex-1 relative px-6 overflow-visible grid place-items-center">
         {/* Background card to create the "deck" feel */}
         {currentIndex + 1 < sessionStack.length && (
           <div className="absolute w-[calc(100%-3rem)] h-[42vh] md:w-[400px] md:h-[400px] md:max-h-[55vh] flex items-center justify-center pointer-events-none">
