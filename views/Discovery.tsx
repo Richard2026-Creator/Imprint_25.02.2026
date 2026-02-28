@@ -74,7 +74,7 @@ const DiscoveryCard: React.FC<DiscoveryCardProps> = ({ image, lastDirection, onS
           onSwipe('left');
         }
       }}
-      className="absolute w-[calc(100%-3rem)] h-[42vh] md:w-[400px] md:h-[400px] md:max-h-[55vh] flex items-center justify-center touch-none cursor-grab active:cursor-grabbing"
+      className="absolute w-[calc(100%-3rem)] h-[42vh] md:w-[400px] md:h-[400px] md:max-h-[55vh] flex items-center justify-center touch-none cursor-grab active:cursor-grabbing mt-14"
     >
       <SwipeCard image={image} />
       <motion.div style={{ opacity: preferOpacity }} className="absolute top-10 right-10 bg-[#faf8f2]/90 backdrop-blur rounded-full p-4 ios-shadow pointer-events-none">
@@ -246,7 +246,7 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
 
   return (
     <div className="fixed inset-0 bg-[#f4f1ea] z-[60] flex flex-col overflow-hidden">
-      <div className="pt-18 pb-6 px-6 bg-[#f4f1ea]/95 backdrop-blur-md z-[100] ios-shadow border-b border-[#dfd9ce]">
+      <div className="pt-16 pb-6 px-6 bg-[#f4f1ea]/95 backdrop-blur-md z-[100] ios-shadow border-b border-[#dfd9ce]">
         <div className="flex justify-between items-center mb-6">
           <button onClick={onCancel} className="p-2 -ml-2 text-[#a39e93] active:scale-90 transition-transform">
             <X size={20} />
@@ -329,7 +329,7 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
       <div className="flex-1 relative px-6 overflow-visible grid place-items-center">
         {/* Background card to create the "deck" feel */}
         {currentIndex + 1 < sessionStack.length && (
-          <div className="absolute w-[calc(100%-3rem)] h-[42vh] md:w-[400px] md:h-[400px] md:max-h-[55vh] flex items-center justify-center pointer-events-none">
+          <div className="absolute w-[calc(100%-3rem)] h-[42vh] md:w-[400px] md:h-[400px] md:max-h-[55vh] flex items-center justify-center pointer-events-none mt-14">
             <div className="w-full h-full bg-[#ede8df] rounded-[3.5rem] overflow-hidden ios-shadow border border-[#dfd9ce] opacity-40 scale-[0.96]">
               <img src={sessionStack[currentIndex + 1].url} className="w-full h-full object-cover grayscale blur-[1px]" />
             </div>
