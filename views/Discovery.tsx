@@ -14,13 +14,13 @@ interface DiscoveryProps {
 }
 
 const cardVariants = {
-  enter: { 
-    scale: 0.96, 
-    opacity: 0, 
+  enter: {
+    scale: 0.96,
+    opacity: 0,
   },
-  center: { 
-    scale: 1, 
-    opacity: 1, 
+  center: {
+    scale: 1,
+    opacity: 1,
     transition: {
       type: "spring",
       stiffness: 220,
@@ -32,7 +32,7 @@ const cardVariants = {
     x: direction === 'right' ? 1000 : direction === 'left' ? -1000 : 0,
     rotate: direction === 'right' ? 15 : direction === 'left' ? -15 : 0,
     opacity: 0,
-    transition: { 
+    transition: {
       type: "spring",
       stiffness: 180,
       damping: 24
@@ -111,39 +111,39 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
   }, [showVolumeSlider]);
   const [lastDirection, setLastDirection] = useState<'left' | 'right' | null>(null);
   const [undoUsedForCurrent, setUndoUsedForCurrent] = useState(false);
-  
+
   const audioCtxRef = useRef<AudioContext | null>(null);
-  
+
   const playSwipeSound = useCallback(async () => {
     if (isMuted || volume === 0) return;
-    
+
     try {
       const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
       if (!audioCtxRef.current || audioCtxRef.current.state === 'closed') {
         audioCtxRef.current = new AudioContextClass();
       }
-      
+
       const ctx = audioCtxRef.current;
       if (ctx.state === 'suspended') {
         await ctx.resume();
       }
-      
+
       const oscillator = ctx.createOscillator();
       const gainNode = ctx.createGain();
-      
+
       // Use triangle wave for a softer but more audible "thump" than sine
       oscillator.type = 'triangle';
       oscillator.frequency.setValueAtTime(150, ctx.currentTime);
       oscillator.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.1);
-      
-      const targetGain = volume * 0.4; 
+
+      const targetGain = volume * 0.4;
       gainNode.gain.setValueAtTime(0.0001, ctx.currentTime);
       gainNode.gain.linearRampToValueAtTime(targetGain, ctx.currentTime + 0.02);
       gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12);
-      
+
       oscillator.connect(gainNode);
       gainNode.connect(ctx.destination);
-      
+
       oscillator.start(ctx.currentTime);
       oscillator.stop(ctx.currentTime + 0.15);
     } catch (e) {
@@ -156,14 +156,14 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
     const randomized = [...activePool].sort(() => Math.random() - 0.5);
     setSessionStack(randomized.slice(0, settings.sessionLength));
     setLastDecisionTime(Date.now());
-    
+
     // Pre-initialize and UNLOCK audio context on first user interaction
     const initAudio = () => {
       const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
       if (!audioCtxRef.current || audioCtxRef.current.state === 'closed') {
         audioCtxRef.current = new AudioContextClass();
       }
-      
+
       const ctx = audioCtxRef.current;
       if (ctx.state === 'suspended') {
         ctx.resume();
@@ -175,7 +175,7 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
       source.buffer = buffer;
       source.connect(ctx.destination);
       source.start(0);
-      
+
       // Remove listeners
       window.removeEventListener('pointerdown', initAudio);
       window.removeEventListener('touchstart', initAudio);
@@ -197,7 +197,7 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
   const handleSwipe = (direction: 'left' | 'right') => {
     const now = Date.now();
     const currentImg = sessionStack[currentIndex];
-    
+
     setLastDirection(direction);
 
     const decision: SwipeDecision = {
@@ -214,7 +214,7 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
     setUndoAvailable(true);
     setUndoUsedForCurrent(false);
     playSwipeSound();
-    
+
     if (currentIndex < sessionStack.length - 1) {
       setCurrentIndex(currentIndex + 1);
       setLastDecisionTime(now);
@@ -252,32 +252,32 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
             <X size={20} />
           </button>
           <div className="flex flex-col items-center">
-             <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#a39e93]">Discovery</span>
-             <span className="serif text-xs italic mt-0.5">{clientName ? `Vision for ${clientName}` : 'Explore your vision'}</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#a39e93]">Discovery</span>
+            <span className="serif text-xs italic mt-0.5">{clientName ? `Vision for ${clientName}` : 'Explore your vision'}</span>
           </div>
           <div className="relative" ref={volumeRef}>
-            <button 
-              onClick={() => setShowVolumeSlider(!showVolumeSlider)} 
+            <button
+              onClick={() => setShowVolumeSlider(!showVolumeSlider)}
               className="p-2 -mr-2 text-[#a39e93] active:scale-90 transition-transform"
             >
               {isMuted || volume === 0 ? <VolumeX size={20} /> : <Volume2 size={20} />}
             </button>
-            
+
             <AnimatePresence>
               {showVolumeSlider && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
                   className="absolute top-full right-0 mt-2 p-3 bg-[#faf8f2] border border-[#dfd9ce] rounded-2xl ios-shadow z-[110] flex flex-col items-center gap-3"
                 >
                   <div className="h-24 w-8 relative flex items-center justify-center">
-                    <input 
-                      type="range" 
-                      min="0" 
-                      max="1" 
-                      step="0.01" 
-                      value={volume} 
+                    <input
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      value={volume}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
                         setVolume(val);
@@ -287,14 +287,14 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <button 
+                    <button
                       onClick={() => setIsMuted(!isMuted)}
                       className="p-2 rounded-full hover:bg-[#ede8df] transition-colors flex items-center justify-center"
                       title={isMuted ? "Unmute" : "Mute"}
                     >
                       {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
                     </button>
-                    <button 
+                    <button
                       onClick={() => playSwipeSound()}
                       className="text-[8px] font-bold uppercase tracking-widest text-[#3d3935] hover:underline"
                     >
@@ -309,14 +309,14 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
 
         <div className="px-4 space-y-2">
           <div className="flex justify-between items-baseline">
-             <span className="text-[8px] uppercase tracking-[0.4em] font-bold text-[#c9c4b9]">Progress</span>
-             <div className="flex items-baseline gap-1">
-               <span className="serif text-lg text-[#3d3935] leading-none tabular-nums">{currentIndex + 1}</span>
-               <span className="text-[8px] font-bold text-[#c9c4b9] tracking-widest leading-none">/ {sessionStack.length}</span>
-             </div>
+            <span className="text-[8px] uppercase tracking-[0.4em] font-bold text-[#c9c4b9]">Progress</span>
+            <div className="flex items-baseline gap-1">
+              <span className="serif text-lg text-[#3d3935] leading-none tabular-nums">{currentIndex + 1}</span>
+              <span className="text-[8px] font-bold text-[#c9c4b9] tracking-widest leading-none">/ {sessionStack.length}</span>
+            </div>
           </div>
           <div className="h-[2px] w-full bg-[#ede8df] rounded-full overflow-hidden">
-            <motion.div 
+            <motion.div
               className="h-full bg-[#3d3935]"
               initial={false}
               animate={{ width: `${progressPercentage}%` }}
@@ -326,18 +326,18 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
         </div>
       </div>
 
- <div className="flex-1 relative px-6 overflow-visible grid place-items-center">
+      <div className="flex-1 relative px-6 overflow-visible grid place-items-center">
         {/* Background card to create the "deck" feel */}
         {currentIndex + 1 < sessionStack.length && (
           <div className="absolute w-[calc(100%-3rem)] h-[42vh] md:w-[400px] md:h-[400px] md:max-h-[55vh] flex items-center justify-center pointer-events-none">
             <div className="w-full h-full bg-[#ede8df] rounded-[3.5rem] overflow-hidden ios-shadow border border-[#dfd9ce] opacity-40 scale-[0.96]">
-               <img src={sessionStack[currentIndex + 1].url} className="w-full h-full object-cover grayscale blur-[1px]" />
+              <img src={sessionStack[currentIndex + 1].url} className="w-full h-full object-cover grayscale blur-[1px]" />
             </div>
           </div>
         )}
 
         <AnimatePresence mode="popLayout" custom={lastDirection}>
-          <DiscoveryCard 
+          <DiscoveryCard
             key={sessionStack[currentIndex].id}
             image={sessionStack[currentIndex]}
             lastDirection={lastDirection}
