@@ -246,7 +246,7 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
 
   return (
     <div className="fixed inset-0 bg-[#f4f1ea] z-[60] flex flex-col overflow-hidden">
-      <div className="pt-16 pb-6 px-6 bg-[#f4f1ea]/95 backdrop-blur-md z-[100] ios-shadow border-b border-[#dfd9ce]">
+      <div className="pt-18 pb-6 px-6 bg-[#f4f1ea]/95 backdrop-blur-md z-[100] ios-shadow border-b border-[#dfd9ce]">
         <div className="flex justify-between items-center mb-6">
           <button onClick={onCancel} className="p-2 -ml-2 text-[#a39e93] active:scale-90 transition-transform">
             <X size={20} />
