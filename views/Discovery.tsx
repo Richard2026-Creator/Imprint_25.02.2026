@@ -62,9 +62,18 @@ const DiscoveryCard: React.FC<DiscoveryCardProps> = ({ image, lastDirection, onS
       animate="center"
       exit="exit"
       drag="x"
-      style={{ x: dragX, rotate, opacity }}
+      style={{
+        x: dragX,
+        rotate,
+        opacity,
+        willChange: 'transform',
+        transform: 'translateZ(0)',
+        backfaceVisibility: 'hidden'
+      }}
+
       dragConstraints={{ left: 0, right: 0 }}
-      dragElastic={1.1}
+      dragElastic={0.35}
+      dragMomentum={false}
       onDragEnd={(_, info) => {
         const threshold = 100;
         const velocityThreshold = 400;
