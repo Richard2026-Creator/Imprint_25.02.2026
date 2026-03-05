@@ -29,15 +29,15 @@ const cardVariants = {
     }
   },
   exit: (direction: 'left' | 'right' | null) => ({
-    x: direction === 'right' ? 1000 : direction === 'left' ? -1000 : 0,
-    rotate: direction === 'right' ? 15 : direction === 'left' ? -15 : 0,
+    x: direction === 'right' ? 1200 : direction === 'left' ? -1000 : 0,
+    rotate: direction === 'right' ? 20 : direction === 'left' ? -20 : 0,
     opacity: 0,
     transition: {
-      type: "spring",
-      stiffness: 180,
-      damping: 24
+      duration: 0.22,
+      ease: "easeOut"
     }
   })
+
 };
 
 interface DiscoveryCardProps {
@@ -75,14 +75,18 @@ const DiscoveryCard: React.FC<DiscoveryCardProps> = ({ image, lastDirection, onS
       dragElastic={0.35}
       dragMomentum={false}
       onDragEnd={(_, info) => {
-        const threshold = 100;
-        const velocityThreshold = 400;
+        const threshold = 120;
+        const velocityThreshold = 600; // Increased velocity sensitivity
         if (info.offset.x > threshold || info.velocity.x > velocityThreshold) {
           onSwipe('right');
         } else if (info.offset.x < -threshold || info.velocity.x < -velocityThreshold) {
           onSwipe('left');
+        } else {
+          // Snap back faster
+          dragX.set(0);
         }
       }}
+
       className="absolute w-[calc(100%-3rem)] h-[42vh] md:w-[400px] md:h-[400px] md:max-h-[55vh] flex items-center justify-center touch-none cursor-grab active:cursor-grabbing shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.14)] transition-all duration-500"
     >
       <SwipeCard image={image} />
