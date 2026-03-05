@@ -74,7 +74,7 @@ const DiscoveryCard: React.FC<DiscoveryCardProps> = ({ image, lastDirection, onS
           onSwipe('left');
         }
       }}
-      className="absolute w-[calc(100%-3rem)] h-[42vh] md:w-[400px] md:h-[400px] md:max-h-[55vh] flex items-center justify-center touch-none cursor-grab active:cursor-grabbing shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.14)] rounded-[3.5rem] bg-white/80 transition-all duration-500"
+      className="absolute w-[calc(100%-3rem)] h-[42vh] md:w-[400px] md:h-[400px] md:max-h-[55vh] flex items-center justify-center touch-none cursor-grab active:cursor-grabbing shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.14)] transition-all duration-500"
     >
       <SwipeCard image={image} />
       <motion.div style={{ opacity: preferOpacity }} className="absolute top-10 right-10 bg-[#faf8f2]/90 backdrop-blur rounded-full p-4 ios-shadow pointer-events-none">
@@ -330,7 +330,7 @@ export const Discovery: React.FC<DiscoveryProps> = ({ library, settings, clientN
         {/* Background card to create the "deck" feel */}
         {currentIndex + 1 < sessionStack.length && (
           <div className="absolute w-[calc(100%-3rem)] h-[42vh] md:w-[400px] md:h-[400px] md:max-h-[55vh] flex items-center justify-center pointer-events-none">
-            <div className="w-full h-full bg-[#ede8df] rounded-[3.5rem] overflow-hidden ios-shadow border border-[#dfd9ce] opacity-40 scale-[0.96]">
+            <div className="w-full h-full bg-[#ede8df] overflow-hidden opacity-40 scale-[0.96]">
               <img src={sessionStack[currentIndex + 1].url} className="w-full h-full object-cover grayscale blur-[1px]" />
             </div>
           </div>
