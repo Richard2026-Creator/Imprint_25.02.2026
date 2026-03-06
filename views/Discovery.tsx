@@ -71,7 +71,6 @@ const DiscoveryCard: React.FC<DiscoveryCardProps> = ({ image, lastDirection, onS
         backfaceVisibility: 'hidden'
       }}
 
-      dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.35}
       dragMomentum={false}
       onDragEnd={(_, info) => {
