@@ -15,27 +15,28 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentView, setView, 
 
   return (
     <div className="flex flex-col min-h-screen bg-[#f4f1ea] text-[#3d3935]">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#f4f1ea]/80 backdrop-blur-md px-12 pt-14 pb-6 flex justify-between items-center">
-        <div
-          className="cursor-pointer transition-all duration-500 hover:opacity-70 active:scale-95 -ml-4"
-          onClick={() => setView('HOME')}
-        >
-          <img
-            src={displayLogo}
-            alt="Branding"
-            className="h-10 w-auto object-contain max-w-[200px]"
-          />
-        </div>
-
-        <div className="flex items-center">
-          <button
-            onClick={() => (window as any).openAdminPin?.()}
-            className="transition-all duration-300 hover:opacity-70 active:scale-95 text-[#a39e93]"
+      {currentView !== 'SUMMARY' && (
+        <header className="fixed top-0 left-0 right-0 z-50 bg-[#f4f1ea]/80 backdrop-blur-md px-12 pt-14 pb-6 flex justify-between items-center">
+          <div
+            className="cursor-pointer transition-all duration-500 hover:opacity-70 active:scale-95 -ml-4"
+            onClick={() => setView('HOME')}
           >
-            <Settings size={22} strokeWidth={1} />
-          </button>
-        </div>
-      </header>
+            <img
+              src={displayLogo}
+              alt="Branding"
+              className="h-10 w-auto object-contain max-w-[200px]"
+            />
+          </div>
+
+          <div className="flex items-center">
+            <button
+              onClick={() => (window as any).openAdminPin?.()}
+              className="transition-all duration-300 hover:opacity-70 active:scale-95 text-[#a39e93]"
+            >
+              <Settings size={22} strokeWidth={1} />
+            </button>
+          </div>
+        </header>)}
 
       <main className="flex-1 flex flex-col pt-40 pb-32">
         {children}
