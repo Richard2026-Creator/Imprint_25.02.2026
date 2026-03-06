@@ -71,7 +71,7 @@ const DiscoveryCard: React.FC<DiscoveryCardProps> = ({ image, lastDirection, onS
         backfaceVisibility: 'hidden'
       }}
 
-      dragElastic={0.35}
+      dragElastic={{ left: 0.25, right: 0.25 }}
       dragMomentum={false}
       touchAction="pan-x"
       style={{ touchAction: 'pan-x', x: dragX, rotate, opacity }}
